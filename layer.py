@@ -26,7 +26,6 @@ class conv2d:
 		self.x_shape = np.array([N, H, W, C])
 		
 		#weight init		
-		#if np.equal(self.w, None).all():
 		if self.w is None:
 			self.w = self.w_init([self.filters, C, *self.kernel_size], np.prod(self.kernel_size)*C) # [filters, in, FH, FW]
 		
@@ -144,6 +143,7 @@ class dropout:
 			x[mask] = 0 #true인 위치의 값을 0으로 dropout.
 			return x
 		else:
+			self.mask = np.full(x.shape, False)
 			return x
 
 	def backward(self, grad):
